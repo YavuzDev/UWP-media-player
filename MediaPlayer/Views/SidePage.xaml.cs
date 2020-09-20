@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
@@ -91,10 +91,9 @@ namespace MediaPlayer.Views
             }
         }
 
-        private async void DirectoryListView_OnItemClick(object sender, ItemClickEventArgs e)
+        private void DirectoryListView_OnItemClick(object sender, ItemClickEventArgs e)
         {
             var savedDirectory = e.ClickedItem as SavedDirectory;
-            await Task.Delay(200, new CancellationTokenSource().Token);
             MainPage.SelectedDirectory.Clear();
             MainPage.SelectedDirectory.Add(savedDirectory);
         }
