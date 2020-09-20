@@ -1,7 +1,7 @@
-﻿using System;
+using System;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.Storage;
-using MediaPlayer.Util;
 
 namespace MediaPlayer.Storage
 {
@@ -12,12 +12,24 @@ namespace MediaPlayer.Storage
             var file = await ApplicationData.Current.LocalFolder.TryGetItemAsync(fileName);
             if (file != null)
             {
-                await FileIO.WriteTextAsync((IStorageFile) file, contents);
+                using (var stream = await ((IStorageFile) file).OpenStreamForWriteAsync())
+                {
+                    using (var writer = new StreamWriter(stream))
+                    {
+                        await writer.WriteAsync(contents);
+                    }
+                }
             }
             else
             {
                 var newFile = await ApplicationData.Current.LocalFolder.CreateFileAsync(fileName);
-                await FileIO.WriteTextAsync(newFile, contents);
+                using (var stream = await newFile.OpenStreamForWriteAsync())
+                {
+                    using (var writer = new StreamWriter(stream))
+                    {
+                        await writer.WriteAsync(contents);
+                    }
+                }
             }
         }
 
@@ -29,7 +41,14 @@ namespace MediaPlayer.Storage
                 return "";
             }
 
-            return await FileIO.ReadTextAsync((IStorageFile) file);
+            using (var stream = await ((IStorageFile) file).OpenStreamForReadAsync())
+            {
+                using (var reader = new StreamReader(stream))
+                {
+                    var contents = await reader.ReadToEndAsync();
+                    return contents;
+                }
+            }
         }
     }
 }
