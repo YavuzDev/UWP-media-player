@@ -1,0 +1,31 @@
+﻿<Page
+    x:Class="MediaPlayer.Views.ContentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:MediaPlayer.Model"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <ListView x:Name="VideoListView" Margin="20, 20, 20, 20" ItemsSource="{x:Bind Videos}" IsItemClickEnabled="True"
+                  ItemClick="VideoListView_OnItemClick">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Padding" Value="20" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:SavedVideo">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="MediaSymbol" FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                   Text="&#xEA69;"
+                                   FontSize="24" Foreground="White" Margin="0, 5, 10, 0" />
+                        <TextBlock Text="{x:Bind Name}" Foreground="White" Margin="5, 5, 0, 0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackPanel>
+
+</Page>

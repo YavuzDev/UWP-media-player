@@ -1,0 +1,35 @@
+﻿<Page
+    x:Class="MediaPlayer.Views.SidePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:model="using:MediaPlayer.Model"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+        <ListView Margin="20, 20, 20, 20" ItemsSource="{x:Bind Folders}" IsItemClickEnabled="True"
+                  ItemClick="DirectoryListView_OnItemClick" RightTapped="DirectoryListView_OnRightTapped">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Padding" Value="20" />
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="model:SavedDirectory">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Name="DirectorySymbol" FontFamily="{StaticResource SymbolThemeFontFamily}"
+                                   Text="&#xED43;"
+                                   FontSize="24" Foreground="White" Margin="0, 5, 10, 0" />
+                        <TextBlock Text="{x:Bind Name}" Width="150" Foreground="White" Margin="5, 5, 0, 0" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button x:Name="AddDirectory" Click="AddDirectory_OnClick" Width="80" Height="80" HorizontalAlignment="Center"
+                HorizontalContentAlignment="Center">
+            <TextBlock x:Name="AddSymbol" FontFamily="{StaticResource SymbolThemeFontFamily}" Text="&#xE710;"
+                       FontSize="30" />
+        </Button>
+    </StackPanel>
+</Page>
