@@ -23,7 +23,7 @@ As you can see, it displays all the videos in the directory.
 
 ## Video Playing
 
-![alt](https://i.imgur.com/w1xqZXS.gif)
+![alt](https://i.imgur.com/UcZnVGX.gif)
 
 In the GIF you can see that the video starts playing at the correct time again, where we left off.
 
