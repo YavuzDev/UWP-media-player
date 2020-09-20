@@ -2,7 +2,6 @@ using System;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Globalization;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -82,11 +81,11 @@ namespace MediaPlayer.Views
             {
                 mediaPlayerElement.MediaPlayer.Pause();
 
-                var time = mediaPlayerElement.MediaPlayer.PlaybackSession.Position.TotalSeconds;
+                var time = (int) mediaPlayerElement.MediaPlayer.PlaybackSession.Position.TotalSeconds;
 
-                await StorageManager.CreateFile(storageFile.Name, time.ToString(CultureInfo.CurrentCulture));
-                Videos[selectedIndex] = new SavedVideo(selectedVideo?.Name, selectedVideo?.Path, (int) time);
-                
+                await StorageManager.CreateFile(storageFile.Name, time.ToString());
+                Videos[selectedIndex] = new SavedVideo(selectedVideo?.Name, selectedVideo?.Path, time);
+
                 mediaPlayerElement = null;
                 page.Content = null;
                 appWindow = null;
