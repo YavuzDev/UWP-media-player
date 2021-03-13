@@ -111,7 +111,7 @@ namespace MediaPlayer.Views
         }
 
         private void DeleteItemContextMenu_OnClick(SavedDirectory savedDirectory)
-        
+        { 
             Folders.RemoveAll(s => s.Path.Equals(savedDirectory.Path));
         }
     }
