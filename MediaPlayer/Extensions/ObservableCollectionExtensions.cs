@@ -7,7 +7,7 @@ namespace MediaPlayer.Extensions
     {
         public static void RemoveAll<T>(this ObservableCollection<T> collection, Func<T, bool> condition)
         {
-            for (var i = 0; i < collection.Count - 1; i++)
+            for (var i = 0; i < collection.Count; i++)
             {
                 if (condition(collection[i]))
                 {

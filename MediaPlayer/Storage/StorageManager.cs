@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Windows.Storage;
-using MediaPlayer.Util;
 
 namespace MediaPlayer.Storage
 {

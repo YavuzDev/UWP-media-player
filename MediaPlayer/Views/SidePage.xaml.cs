@@ -3,8 +3,6 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using Windows.Storage.AccessCache;
 using Windows.Storage.Pickers;
 using Windows.UI.Xaml;
@@ -114,7 +112,7 @@ namespace MediaPlayer.Views
 
         private void DeleteItemContextMenu_OnClick(SavedDirectory savedDirectory)
         {
-            Folders.RemoveAll(s => s.Path == savedDirectory.Path);
+            Folders.RemoveAll(s => s.Path.Equals(savedDirectory.Path));
         }
     }
 }

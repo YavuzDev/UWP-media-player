@@ -9,7 +9,7 @@
 
     <StackPanel>
         <ListView x:Name="VideoListView" Margin="20, 20, 20, 20" ItemsSource="{x:Bind Videos}" IsItemClickEnabled="True"
-                  ItemClick="VideoListView_OnItemClick">
+                  ItemClick="VideoListView_OnItemClick" RightTapped="VideoListView_OnRightTapped">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="Padding" Value="20" />

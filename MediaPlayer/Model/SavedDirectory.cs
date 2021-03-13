@@ -31,5 +31,10 @@
                 return ((Name != null ? Name.GetHashCode() : 0) * 397) ^ (Path != null ? Path.GetHashCode() : 0);
             }
         }
+
+        public override string ToString()
+        {
+            return $"{nameof(Name)}: {Name}, {nameof(Path)}: {Path}";
+        }
     }
 }
