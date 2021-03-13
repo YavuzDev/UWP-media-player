@@ -17,6 +17,7 @@ using MediaPlayer.Extensions;
 using MediaPlayer.Model;
 using MediaPlayer.Storage;
 using MediaPlayer.Util;
+using Windows.Storage.AccessCache;
 
 namespace MediaPlayer.Views
 {
@@ -41,7 +42,7 @@ namespace MediaPlayer.Views
             {
                 Videos.Clear();
                 var savedDirectory = e.NewItems[0] as SavedDirectory;
-                var folder = await StorageFolder.GetFolderFromPathAsync(savedDirectory?.Path ?? "");
+                var folder = await StorageApplicationPermissions.FutureAccessList.GetFolderAsync(savedDirectory?.Token ?? "");
                 var files = await folder.GetFilesAsync();
                 foreach (var storageFile in files.Where(f => AllowedExtensions.Contains(f.FileType)))
                 {

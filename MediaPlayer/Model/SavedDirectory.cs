@@ -1,40 +1,37 @@
-﻿namespace MediaPlayer.Model
+﻿using System.Collections.Generic;
+
+namespace MediaPlayer.Model
 {
     public class SavedDirectory
     {
-        public SavedDirectory(string name, string path)
+        public SavedDirectory(string name, string path, string token)
         {
             Name = name;
             Path = path;
+            Token = token;
         }
 
         public string Name { get; }
 
         public string Path { get; }
 
-        private bool Equals(SavedDirectory other)
-        {
-            return Name == other.Name && Path == other.Path;
-        }
+        public string Token { get; }
 
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            return obj.GetType() == GetType() && Equals((SavedDirectory) obj);
+            return obj is SavedDirectory directory &&
+                   Name == directory.Name &&
+                   Path == directory.Path &&
+                   Token == directory.Token;
         }
 
         public override int GetHashCode()
         {
-            unchecked
-            {
-                return ((Name != null ? Name.GetHashCode() : 0) * 397) ^ (Path != null ? Path.GetHashCode() : 0);
-            }
-        }
-
-        public override string ToString()
-        {
-            return $"{nameof(Name)}: {Name}, {nameof(Path)}: {Path}";
+            int hashCode = 1346707966;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Path);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Token);
+            return hashCode;
         }
     }
 }

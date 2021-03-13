@@ -54,14 +54,14 @@ namespace MediaPlayer.Views
                     return;
                 }
 
-                Folders.Add(new SavedDirectory(split[0], split[1]));
+                Folders.Add(new SavedDirectory(split[0], split[1], split[2]));
             });
         }
 
         private async void OnFoldersChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             var builder = new StringBuilder();
-            Folders.ToList().ForEach(f => { builder.Append(f.Name).Append(",").Append(f.Path).Append("\n"); });
+            Folders.ToList().ForEach(f => { builder.Append(f.Name).Append(",").Append(f.Path).Append(",").Append(f.Token).Append("\n"); });
             await StorageManager.CreateFile("directories", builder.ToString());
         }
 
@@ -73,15 +73,15 @@ namespace MediaPlayer.Views
             var folder = await folderPicker.PickSingleFolderAsync();
             if (folder != null)
             {
-                var savedDirectory = new SavedDirectory(folder.Name, folder.Path);
+                var savedDirectory = new SavedDirectory(folder.Name, folder.Path, "");
                 if (Folders.Contains(savedDirectory))
                 {
                     await Alert.SendAlert("This directory is already included");
                     return;
                 }
 
-                StorageApplicationPermissions.FutureAccessList.AddOrReplace("PickedFolderToken", folder);
-                Folders.Add(new SavedDirectory(folder.Name, folder.Path));
+                var token = StorageApplicationPermissions.FutureAccessList.Add(folder);
+                Folders.Add(new SavedDirectory(folder.Name, folder.Path, token));
             }
             else
             {
@@ -111,7 +111,7 @@ namespace MediaPlayer.Views
         }
 
         private void DeleteItemContextMenu_OnClick(SavedDirectory savedDirectory)
-        {
+        
             Folders.RemoveAll(s => s.Path.Equals(savedDirectory.Path));
         }
     }
