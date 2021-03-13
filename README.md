@@ -1,6 +1,6 @@
 # UWP-media-player
 
-A desktop media player which remembers the time you left each video at.
+A desktop media player which remembers the time you left each video at. You can download it here https://github.com/Kiraged/UWP-media-player/releases.
 
 # Technologies used
 
